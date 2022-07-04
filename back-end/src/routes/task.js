@@ -4,5 +4,6 @@ const controllerTask = require('../controller/task');
 
 router.get('/task', controllerTask.getAll);
 router.post('/task', controllerTask.create);
+router.put('/task/:id', controllerTask.update);
 
 module.exports = router;

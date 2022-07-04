@@ -5,6 +5,11 @@ const getAll = async () => {
   return tasks;
 }
 
+const getById = async (id) => {
+  const taskById = await Task.findOne({ where: { id } });
+  return taskById;
+};
+
 const create = async (name, status) => {
   const created = await Task.create({
     name,
@@ -15,7 +20,27 @@ const create = async (name, status) => {
   return created;
 }
 
+const update = async (id, name, status) => {
+  const taskById = await getById(id);
+
+  if (!taskById) {
+    throw Error('task id does not exist');
+  }
+
+  await Task.update(
+    { name, status },
+    { where: { id } },
+  );
+
+  taskById.name = name;
+  taskById.status = status;
+  taskById.creationDate = Date.now();
+
+  return taskById;
+};
+
 module.exports = {
   getAll,
   create,
+  update,
 }
