@@ -39,8 +39,19 @@ const update = async (id, name, status) => {
   return taskById;
 };
 
+const deleteTask = async (id) => {
+  const taskById = await getById(id);
+
+  if (!taskById) {
+    throw Error('task id does not exist');
+  }
+
+  await Task.destroy({ where: { id } });
+};
+
 module.exports = {
   getAll,
   create,
   update,
+  deleteTask,
 }

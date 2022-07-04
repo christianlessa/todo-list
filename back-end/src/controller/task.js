@@ -14,6 +14,7 @@ const create = async (req, res) => {
     const { name, status } = req.body;
 
     const created = await serviceTask.create(name, status);
+
     return res.status(201).json(created);
   } catch (error) {
     return res.status(400).json({ message: error.message });
@@ -33,9 +34,21 @@ const update = async (req, res) => {
   }
 };
 
+const deleteTask = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await serviceTask.deleteTask(id);
+
+    return res.status(200).json({ message: `Task id: ${id}, deleted` });
+  } catch (error) {
+    return res.status(400).json({ mesage: error.message });
+  }
+}
+
 
 module.exports = {
   getAll,
   create,
   update,
+  deleteTask,
 }

@@ -5,5 +5,6 @@ const controllerTask = require('../controller/task');
 router.get('/task', controllerTask.getAll);
 router.post('/task', controllerTask.create);
 router.put('/task/:id', controllerTask.update);
+router.delete('/task/:id', controllerTask.deleteTask);
 
 module.exports = router;
